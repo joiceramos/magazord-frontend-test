@@ -16,19 +16,11 @@ export function RepositoryProfile(props: RepositoryProfileProps) {
   const [info, setInfo] = useState(false);
 
   useEffect(() => {
-    if (window?.innerWidth >= 744) {
-      setInfo(true)
-    } else {
-      setInfo(false)
-    }
+    setInfo(window?.innerWidth >= 744 ? true : false);
   }, []);
 
   const handleInfo = useCallback(() => {
-    if (info) {
-      setInfo(false);
-    } else {
-      setInfo(true);
-    }
+    setInfo(!info);
   }, [info]);
 
   return (
@@ -38,11 +30,7 @@ export function RepositoryProfile(props: RepositoryProfileProps) {
           <img src={props.profile.avatar_url} alt="" className="img-avatar"/>
           <img src="./images/emoji.svg" alt="" className="emoji"/>
         </div>
-        {/* {props.profile.name && (
-
-        )} */}
         <p className="profile-name">{props.profile.name || props.profile.login}</p>
-        {/* <p className="profile-name">{}</p> */}
         <p className="profile-bio">{props.profile.bio}</p>
       </div>
       <div>

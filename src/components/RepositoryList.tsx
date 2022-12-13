@@ -95,7 +95,7 @@ export function RepositoryList() {
 
     fetch(`https://api.github.com/users/${GIT_USER}/repos`)
       .then(response => response.json())
-      .then(data => {
+      .then((data: Repository[]) => {
         setRepositories(data);
         let languages = [...new Set(data.map((repo: Repository) => repo.language))];
         languages = languages.filter(language => language);
@@ -105,7 +105,7 @@ export function RepositoryList() {
 
     fetch(`https://api.github.com/users/${GIT_USER}/starred`)
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: Repository[]) => {
         setRepositoriesStarred(data);
         let languages = [...new Set(data.map((repo: Repository) => repo.language))];
         languages = languages.filter(language => language);
@@ -251,6 +251,11 @@ export function RepositoryList() {
                               type="checkbox"
                               name="language-repo" 
                               id='language-all'
+                              defaultChecked={true}
+                              checked={
+                                (menuRepositories && (filteredLanguages.length === userLanguages.length || filteredLanguages.length === 0)) || 
+                                (menuStarred && (filteredStarredLanguages.length === userStarredLanguages.length || filteredStarredLanguages.length === 0))
+                              }
                               onChange={(e) => {
                                 if (e.target.checked) {
                                   setFilteredLanguages([])
@@ -313,6 +318,10 @@ export function RepositoryList() {
                               type="checkbox" 
                               value="All" 
                               defaultChecked={true}
+                              checked={
+                                (!filterTypeSource && !filterTypeFork && !filterTypeArchived && !filterTypeMirror) || 
+                                filterTypeSource && filterTypeFork && filterTypeArchived && filterTypeMirror
+                              }
                               name="type-repo" 
                               id="type-all"
                               onChange={(e) => {
