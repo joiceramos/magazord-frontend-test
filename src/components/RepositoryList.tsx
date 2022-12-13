@@ -27,7 +27,7 @@ interface Profile {
 }
 
 export function RepositoryList() {
-  const GIT_USER = 'rodrigoprobst';
+  const GIT_USER = 'joiceramos';
 
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [repositoriesStarred, setRepositoriesStarred] = useState<Repository[]>([]);
